@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hp.dao.LianJiaDao">
+<resultMap id="BaseResultMap" type="com.hp.dao.model.LianJiaDO">
+	<id column="URL" property="url" jdbcType="VARCHAR" />
+	<id column="NAME" property="name" jdbcType="VARCHAR" />
+	<id column="CREATETIME" property="createTime" jdbcType="VARCHAR" />
+	<id column="BUILDTIME" property="buildTime" jdbcType="VARCHAR" />
+	<id column="TOTALPRICE" property="totalPrice" jdbcType="VARCHAR" />
+	<id column="UNITPRICE" property="unitPrice" jdbcType="VARCHAR" />
+	<id column="SIZE" property="size" jdbcType="VARCHAR" />
+	<id column="ROOM" property="room" jdbcType="VARCHAR" />
+	<id column="DIRTYPE" property="dirType" jdbcType="VARCHAR" />
+	<id column="ADDRESS" property="address" jdbcType="VARCHAR" />
+	<id column="SPAN" property="span" jdbcType="VARCHAR" />
+	<id column="UPDATETIME" property="updateTime" jdbcType="VARCHAR" />
+	<id column="FIRSTAREA" property="firstArea" jdbcType="VARCHAR" />
+	<id column="SECONDAREA" property="secondArea" jdbcType="VARCHAR" />
+	<id column="TYPE" property="type" jdbcType="VARCHAR" />
+	<id column="FLOOR" property="floor" jdbcType="VARCHAR" />
+	<id column="HOUSETYPE" property="houseType" jdbcType="VARCHAR" />
+	<id column="BASE" property="base" jdbcType="VARCHAR" />
+	<id column="TRADEBASE" property="tradeBase" jdbcType="VARCHAR" />
+</resultMap>
+
+	<select  id="selectUrllist"  resultType="java.lang.String" parameterType="com.hp.dao.model.LianJiaDO" >
+	select URL from LIANJIAHP where NAME is null and CREATETIME =#{createTime,jdbcType=VARCHAR}
+	</select>
+	
+	<select  id="selectErrorUrlList"  resultType="java.lang.String" parameterType="com.hp.dao.model.LianJiaDO" >
+	select URL from FAILINFO where CREATETIME =#{createTime,jdbcType=VARCHAR}
+	</select>
+	
+	
+	<insert id="insert" parameterType="com.hp.dao.model.LianJiaDO" >
+	insert into LIANJIAHP(URL,CREATETIME) values(#{url,jdbcType=VARCHAR},#{createTime,jdbcType=VARCHAR})
+	</insert>
+	
+	<update id="update" parameterType="com.hp.dao.model.LianJiaDO">
+	update LIANJIAHP <set><if test="name != null">
+				NAME = #{name,jdbcType=VARCHAR},
+			</if><if test="buildTime != null">
+				BUILDTIME = #{buildTime,jdbcType=VARCHAR},
+			</if><if test="totalPrice != null">
+				TOTALPRICE = #{totalPrice,jdbcType=VARCHAR},
+			</if><if test="unitPrice != null">
+				UNITPRICE = #{unitPrice,jdbcType=VARCHAR},
+			</if><if test="size != null">
+				SIZE = #{size,jdbcType=VARCHAR},
+			</if><if test="room != null">
+				ROOM = #{room,jdbcType=VARCHAR},
+			</if><if test="dirType != null">
+				DIRTYPE = #{dirType,jdbcType=VARCHAR},
+			</if><if test="address != null">
+				ADDRESS = #{address,jdbcType=VARCHAR},
+			</if><if test="span != null">
+				SPAN = #{span,jdbcType=VARCHAR},
+			</if><if test="updateTime != null">
+				UPDATETIME = #{updateTime,jdbcType=VARCHAR},
+			</if><if test="firstArea != null">
+				FIRSTAREA = #{firstArea,jdbcType=VARCHAR},
+			</if><if test="secondArea != null">
+				SECONDAREA = #{secondArea,jdbcType=VARCHAR},
+			</if><if test="type != null">
+				TYPE = #{type,jdbcType=VARCHAR},
+			</if><if test="floor != null">
+				FLOOR = #{floor,jdbcType=VARCHAR},
+			</if><if test="houseType != null">
+				HOUSETYPE = #{houseType,jdbcType=VARCHAR},
+			</if><if test="base != null">
+				BASE = #{base,jdbcType=VARCHAR},
+			</if><if test="tradeBase != null">
+				TRADEBASE = #{tradeBase,jdbcType=VARCHAR},
+	</if></set>where URL = #{url,jdbcType=VARCHAR} 
+ 		and CREATETIME =#{createTime,jdbcType=VARCHAR}
+	</update>
+
+</mapper>

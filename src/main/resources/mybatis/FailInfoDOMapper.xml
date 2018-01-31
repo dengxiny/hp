@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hp.dao.FailInfoDao">
+<resultMap id="BaseResultMap" type="com.hp.dao.model.FailInfoDo">
+	<id column="URL" property="url" jdbcType="VARCHAR" />
+	<id column="FAILINFO" property="failInfo" jdbcType="VARCHAR" />
+	<id column="CREATETIME" property="createTime" jdbcType="VARCHAR" />
+	
+</resultMap>
+
+	<insert id="insert" parameterType="com.hp.dao.TestDao">
+	insert into FAILINFO(URL,CREATETIME,FAILINFO) values(#{url,jdbcType=VARCHAR},#{createTime,jdbcType=VARCHAR},#{failInfo,jdbcType=VARCHAR})
+	</insert>
+
+</mapper>
