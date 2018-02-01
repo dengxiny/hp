@@ -17,4 +17,4 @@
 ### ·可通过配置参数配置执行时间
 ## 6 web界面
 ### 由于目前懒得做查询和数据分析界面 仅提供爬取数据功能 以后可以实现接口提供长期数据
-![image](http://github.com/itmyhome2013/readme_add_pic/raw/master/images/nongshalie.jpg)
+! [image] (http://github.com/itmyhome2013/readme_add_pic/raw/master/images/nongshalie.jpg)
