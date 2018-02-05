@@ -723,6 +723,13 @@ public class ProcessServiceImpl implements ProcessService {
 		logger.info("=========webmagic模式=========");
 		logger.info("=========webmagic模式开启=========");
 		flag=0;
+		/*	
+		webmagic配置IP代理
+		HttpClientDownloader httpClientDownloader = new HttpClientDownloader();
+        httpClientDownloader.setProxyProvider(SimpleProxyProvider.from(
+        new Proxy("27.150.85.171",808)));
+        spider.setDownloader(httpClientDownloader);
+        */
 		Spider spider=Spider.create(workProcesser).addUrl(url).thread(threadSize);
 		spider.start();
 		//callable future 来 读取spider状态 阻塞防止直接返回对异常进行处理
@@ -738,7 +745,7 @@ public class ProcessServiceImpl implements ProcessService {
 							break;
 						} else if (spider.getStatus().toString().equals("running")) {
 							logger.info("doing");
-							spider.close();
+						//	spider.close();
 						} else {
 							logger.info("doing");
 						}
