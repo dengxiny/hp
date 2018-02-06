@@ -1,6 +1,5 @@
 package com.hp.controller;
 
-import static org.mockito.Matchers.longThat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +13,11 @@ import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hp.dao.model.TestDO2;
 import com.hp.redis.RedisCache;
-import com.hp.service.DownService;
 import com.hp.service.ProcessService;
 import com.hp.service.TestService;
+
+
 
 
 @RestController
