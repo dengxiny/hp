@@ -34,6 +34,8 @@ public class WorkProcesser implements PageProcessor{
 	
 	@Autowired
 	FailInfoDao failInfoDao;
+	//主页
+	public  String URL="";
 
 	//列表页
 	public  String URL_LIST="";//redisCache.getString("URL").split("lianjia.com/")[1]+"/pg\\d{1}";
@@ -51,7 +53,8 @@ public class WorkProcesser implements PageProcessor{
 	@Override
 	public Site getSite() {
 		if(count==0) {
-		URL_LIST="/"+redisCache.getString("URL").split("lianjia.com/")[1]+"/pg\\d{1}/";
+		URL=redisCache.getString("URL");
+		URL_LIST="/"+redisCache.getString("URL").split("lianjia.com/")[1]+"/pg\\d+/";
 		URL_POST=redisCache.getString("URL").split("lianjia.com/")[0]+"lianjia.com/"+redisCache.getString("URL").split("lianjia.com/")[1].split("/")[0]+"/\\d+.html";
 		URL_DETAIL=URL_POST.replace(".", "\\.");
 		//System.out.println(redisCache.getString("URL")+"12");
@@ -73,7 +76,13 @@ public class WorkProcesser implements PageProcessor{
 	}
 	@Override
 	public void process(Page page) {
-		page.addTargetRequests(page.getHtml().links().regex(URL_LIST).all());
+		if(page.getRequest().getUrl().equals(URL)) {
+			int len=Integer.valueOf(page.getHtml().xpath("//div[@class='page-box fr']/div/@page-data").toString().split(":")[1]
+					.split(",")[0]);
+			for (int i = 0; i <= len; i++) {
+				page.addTargetRequest(URL+"/pg"+i+"/");
+			}
+		}
 		if (page.getUrl().regex(URL_LIST).match()) {
 			//System.out.println(page.getHtml().links().regex(URL_DETAIL).all().toString());
 			page.addTargetRequests(page.getHtml().links().regex(URL_DETAIL).all());
@@ -92,10 +101,32 @@ public class WorkProcesser implements PageProcessor{
 			lianJiaDO.setAddress(get(page, LianJiaCostant.LIANJIA_ADDRESS));
 			lianJiaDO.setDirType(get(page, LianJiaCostant.LIANJIA_DIRTYPR));
 			lianJiaDO.setFloor(get(page, LianJiaCostant.LIANJIA_FLOOR));
-			lianJiaDO.setSize(get(page, LianJiaCostant.LIANJIA_SIZE));
+			String pagesize=get(page, LianJiaCostant.LIANJIA_SIZE);
+			if(null!=pagesize&&!pagesize.equals("")&&pagesize.contains("平米")) {
+				Float size=Float.valueOf(pagesize.replace("平米", ""));
+				lianJiaDO.setSize(size);
+			}else {
+				Float size=(float) 0;
+				lianJiaDO.setSize(size);
+			}
 			lianJiaDO.setBuildTime(get(page, LianJiaCostant.LIANJIA_BUILDTIME));
-			lianJiaDO.setUnitPrice(get(page, LianJiaCostant.LIANJIA_UNITPRICE));
-			lianJiaDO.setTotalPrice(get(page, LianJiaCostant.LIANJIA_TOTALPRICE));
+			
+			String UNITPRICE=get(page, LianJiaCostant.LIANJIA_UNITPRICE);
+			if(null!=UNITPRICE&&!UNITPRICE.equals("")&&UNITPRICE.contains("平米")) {
+				Float unitPrice=Float.valueOf(UNITPRICE.replace("元/平米", ""));
+				lianJiaDO.setUnitPrice(unitPrice);
+			}else {
+				Float unitPrice=(float) 0;
+			lianJiaDO.setUnitPrice(unitPrice);
+			}
+			if(null!=get(page, LianJiaCostant.LIANJIA_TOTALPRICE)&&!get(page, LianJiaCostant.LIANJIA_TOTALPRICE).equals("")) {
+				Float unitPrice=Float.valueOf(get(page, LianJiaCostant.LIANJIA_TOTALPRICE));
+				lianJiaDO.setTotalPrice(unitPrice);
+			}
+			else {
+				Float unitPrice=(float) 0;
+				lianJiaDO.setTotalPrice(unitPrice);
+			}
 			lianJiaDO.setRoom(get(page, LianJiaCostant.LIANJIA_ROOM));
 			lianJiaDO.setSpan(get(page, LianJiaCostant.LIANJIA_SPAN));
 			if (page.getRequest().getUrl().contains("ershoufang")) {
@@ -115,6 +146,7 @@ public class WorkProcesser implements PageProcessor{
 			logger.info("insert PageUrl error ");
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			insertFailInfo(page.getUrl().toString(), "download PageUrl error ");
 			logger.info("download PageUrl error ");
 		}

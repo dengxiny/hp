@@ -5,9 +5,9 @@ private String url;//链接
 private String name;//
 private String createTime;
 private String buildTime;
-private String totalPrice;//总
-private String unitPrice;//单
-private String size;//大小
+private Float totalPrice;//总
+private Float unitPrice;//单
+private Float size;//大小
 private String room;//
 private String dirType;//
 private String address;
@@ -44,22 +44,23 @@ public String getBuildTime() {
 public void setBuildTime(String buildTime) {
 	this.buildTime = buildTime;
 }
-public String getTotalPrice() {
+
+public Float getTotalPrice() {
 	return totalPrice;
 }
-public void setTotalPrice(String totalPrice) {
+public void setTotalPrice(Float totalPrice) {
 	this.totalPrice = totalPrice;
 }
-public String getUnitPrice() {
+public Float getUnitPrice() {
 	return unitPrice;
 }
-public void setUnitPrice(String unitPrice) {
+public void setUnitPrice(Float unitPrice) {
 	this.unitPrice = unitPrice;
 }
-public String getSize() {
+public Float getSize() {
 	return size;
 }
-public void setSize(String size) {
+public void setSize(Float size) {
 	this.size = size;
 }
 public String getRoom() {

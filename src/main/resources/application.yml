@@ -43,12 +43,12 @@ redis:
       max-active: 50
       max-idle: 10
       max-wait: 5 
-#配置区域
-spider-list: https://hz.lianjia.com/ershoufang,https://hz.lianjia.com/ershoufang/xihu,https://hz.lianjia.com/ershoufang/xiaoshan
+#配置区域 ,https://hz.lianjia.com/ershoufang/xihu,https://hz.lianjia.com/ershoufang/xiaoshan
+spider-list: https://hz.lianjia.com/ershoufang
 #模式 01-httpclient全自动 02-httpclient列表页 03-httpclient详情页 04-当日异常url重爬 
 #httpclient代理 同上 11-全自动 ...
 #21-webmagic爬取 
-start-mode: "04"
+start-mode: "21"
 #测试代理
 spider-ip-url: https://hz.fang.lianjia.com/loupan
 #线程数
@@ -56,6 +56,6 @@ spider-thread-size: 3
 #休眠时间
 spider-thread-sleep-time: 500
 #定时任务配置开关 0-关 1-开
-quartz-mode: 1
+quartz-mode: 0
 #定时任务配置时间
 quartz-schedule: 0 32 15 29/3 * ?

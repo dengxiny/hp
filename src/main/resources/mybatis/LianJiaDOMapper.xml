@@ -42,11 +42,11 @@
 			</if><if test="buildTime != null">
 				BUILDTIME = #{buildTime,jdbcType=VARCHAR},
 			</if><if test="totalPrice != null">
-				TOTALPRICE = #{totalPrice,jdbcType=VARCHAR},
+				TOTALPRICE = #{totalPrice},
 			</if><if test="unitPrice != null">
-				UNITPRICE = #{unitPrice,jdbcType=VARCHAR},
+				UNITPRICE = #{unitPrice},
 			</if><if test="size != null">
-				SIZE = #{size,jdbcType=VARCHAR},
+				SIZE = #{size},
 			</if><if test="room != null">
 				ROOM = #{room,jdbcType=VARCHAR},
 			</if><if test="dirType != null">

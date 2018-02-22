@@ -439,10 +439,32 @@ public class ProcessServiceImpl implements ProcessService {
 			lianJiaDO.setAddress(get(page, LianJiaCostant.LIANJIA_ADDRESS));
 			lianJiaDO.setDirType(get(page, LianJiaCostant.LIANJIA_DIRTYPR));
 			lianJiaDO.setFloor(get(page, LianJiaCostant.LIANJIA_FLOOR));
-			lianJiaDO.setSize(get(page, LianJiaCostant.LIANJIA_SIZE));
+			String pagesize=get(page, LianJiaCostant.LIANJIA_SIZE);
+			if(null!=pagesize&&!pagesize.equals("")&&pagesize.contains("平米")) {
+				Float size=Float.valueOf(pagesize.replace("平米", ""));
+				lianJiaDO.setSize(size);
+			}else {
+				Float size=(float) 0;
+				lianJiaDO.setSize(size);
+			}
 			lianJiaDO.setBuildTime(get(page, LianJiaCostant.LIANJIA_BUILDTIME));
-			lianJiaDO.setUnitPrice(get(page, LianJiaCostant.LIANJIA_UNITPRICE));
-			lianJiaDO.setTotalPrice(get(page, LianJiaCostant.LIANJIA_TOTALPRICE));
+			
+			String UNITPRICE=get(page, LianJiaCostant.LIANJIA_UNITPRICE);
+			if(null!=UNITPRICE&&!UNITPRICE.equals("")&&UNITPRICE.contains("平米")) {
+				Float unitPrice=Float.valueOf(UNITPRICE.replace("元/平米", ""));
+				lianJiaDO.setUnitPrice(unitPrice);
+			}else {
+				Float unitPrice=(float) 0;
+			lianJiaDO.setUnitPrice(unitPrice);
+			}
+			if(null!=get(page, LianJiaCostant.LIANJIA_TOTALPRICE)&&!get(page, LianJiaCostant.LIANJIA_TOTALPRICE).equals("")) {
+				Float unitPrice=Float.valueOf(get(page, LianJiaCostant.LIANJIA_TOTALPRICE));
+				lianJiaDO.setTotalPrice(unitPrice);
+			}
+			else {
+				Float unitPrice=(float) 0;
+				lianJiaDO.setTotalPrice(unitPrice);
+			}
 			lianJiaDO.setRoom(get(page, LianJiaCostant.LIANJIA_ROOM));
 			lianJiaDO.setSpan(get(page, LianJiaCostant.LIANJIA_SPAN));
 			if (url.contains("ershoufang")) {
@@ -503,10 +525,32 @@ public class ProcessServiceImpl implements ProcessService {
 			lianJiaDO.setAddress(get(page, LianJiaCostant.LIANJIA_ADDRESS));
 			lianJiaDO.setDirType(get(page, LianJiaCostant.LIANJIA_DIRTYPR));
 			lianJiaDO.setFloor(get(page, LianJiaCostant.LIANJIA_FLOOR));
-			lianJiaDO.setSize(get(page, LianJiaCostant.LIANJIA_SIZE));
+			String pagesize=get(page, LianJiaCostant.LIANJIA_SIZE);
+			if(null!=pagesize&&!pagesize.equals("")&&pagesize.contains("平米")) {
+				Float size=Float.valueOf(pagesize.replace("平米", ""));
+				lianJiaDO.setSize(size);
+			}else {
+				Float size=(float) 0;
+				lianJiaDO.setSize(size);
+			}
 			lianJiaDO.setBuildTime(get(page, LianJiaCostant.LIANJIA_BUILDTIME));
-			lianJiaDO.setUnitPrice(get(page, LianJiaCostant.LIANJIA_UNITPRICE));
-			lianJiaDO.setTotalPrice(get(page, LianJiaCostant.LIANJIA_TOTALPRICE));
+			
+			String UNITPRICE=get(page, LianJiaCostant.LIANJIA_UNITPRICE);
+			if(null!=UNITPRICE&&!UNITPRICE.equals("")&&UNITPRICE.contains("平米")) {
+				Float unitPrice=Float.valueOf(UNITPRICE.replace("元/平米", ""));
+				lianJiaDO.setUnitPrice(unitPrice);
+			}else {
+				Float unitPrice=(float) 0;
+			lianJiaDO.setUnitPrice(unitPrice);
+			}
+			if(null!=get(page, LianJiaCostant.LIANJIA_TOTALPRICE)&&!get(page, LianJiaCostant.LIANJIA_TOTALPRICE).equals("")) {
+				Float unitPrice=Float.valueOf(get(page, LianJiaCostant.LIANJIA_TOTALPRICE));
+				lianJiaDO.setTotalPrice(unitPrice);
+			}
+			else {
+				Float unitPrice=(float) 0;
+				lianJiaDO.setTotalPrice(unitPrice);
+			}
 			lianJiaDO.setRoom(get(page, LianJiaCostant.LIANJIA_ROOM));
 			lianJiaDO.setSpan(get(page, LianJiaCostant.LIANJIA_SPAN));
 			if (url.contains("ershoufang")) {
@@ -651,9 +695,9 @@ public class ProcessServiceImpl implements ProcessService {
 				logger.info("#####选择普通模式异常url重爬	异常");
 			}
 		}else {
-			logger.info("选择模式失败");
+			logger.info("选择模式不存在");
 		}
-		logger.info("=========选择模式不存在=========");
+		logger.info("=========普通模式结束=========");
 	}
 	
 	@Override
