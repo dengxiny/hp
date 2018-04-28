@@ -28,7 +28,10 @@
 	</select>
 	
 	<select  id="selectErrorUrlList"  resultType="java.lang.String" parameterType="com.hp.dao.model.LianJiaDO" >
-	select URL from FAILINFO where CREATETIME =#{createTime,jdbcType=VARCHAR}
+	select URL from FAILINFO where 1=1
+	<if test="createTime != null">
+	and CREATETIME =#{createTime,jdbcType=VARCHAR}
+	</if>
 	</select>
 	
 	

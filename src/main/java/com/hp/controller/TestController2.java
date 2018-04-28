@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hp.dao.LianJiaDao;
+import com.hp.dao.TestDao;
+import com.hp.dao.model.LianJiaDO;
 import com.hp.redis.RedisCache;
 import com.hp.service.ProcessService;
 import com.hp.service.TestService;
@@ -31,6 +34,8 @@ public class TestController2 {
 	
 	@Autowired 
 	public ProcessService processService;
+	@Autowired
+	LianJiaDao lianJiaDao;
 	
 	@Value("#{'${spider-list}'.split(',')}")
 	private List<String> list;
@@ -76,5 +81,9 @@ public class TestController2 {
 	/*public static void main(String[] args) {
 		SpringApplication.run(TestController.class, args);
 	}*/
-	
+	@RequestMapping("/error.do")
+	public List<String> f2() {
+		LianJiaDO l=new LianJiaDO();
+		return lianJiaDao.selectErrorUrlList(l);
+	}
 }

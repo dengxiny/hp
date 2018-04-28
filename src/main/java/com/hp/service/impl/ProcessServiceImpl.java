@@ -800,6 +800,7 @@ public class ProcessServiceImpl implements ProcessService {
 				return flag;
 			}
 		});
+		threadPool.shutdown();
 		try {
 			Thread.sleep(5000);
 			if (future.get() == 1) {

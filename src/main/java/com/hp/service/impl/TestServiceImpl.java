@@ -123,7 +123,7 @@ public class TestServiceImpl implements TestService{
 					lock.lock();
 					String json=redisCache.getString("IP");
 					Set<String> set1=(Set<String>) JsonUtil.toBean(json,set.getClass());
-					set1.add("5555");
+				//	set1.add("5555");
 					//System.out.println("123");
 					redisCache.setString("IP", JsonUtil.toJSONString(set1));
 					System.out.println("第一个"+json);
