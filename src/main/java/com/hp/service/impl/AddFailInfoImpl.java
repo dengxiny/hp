@@ -27,7 +27,7 @@ public class AddFailInfoImpl {
 	
 	public int removeIP(String ip) {
 		try {
-			Set<String> set=new HashSet<>();
+			Set<String> set=new HashSet<String>();
 			Lock lock=new ReentrantLock(); 
 			lock.lock();
 			String json=redisCache.getString("IP");
@@ -60,7 +60,7 @@ public class AddFailInfoImpl {
 	
 	public void work(String url) {
 		Boolean flag=false;
-		Set<String> set=new HashSet<>();
+		Set<String> set=new HashSet<String>();
 		String json=redisCache.getString("IP");
 		set=(Set<String>) JsonUtil.toBean(json,set.getClass());
 		Iterator<String> itera=set.iterator();

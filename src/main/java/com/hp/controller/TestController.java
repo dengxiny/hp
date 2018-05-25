@@ -28,7 +28,7 @@ public class TestController {
 	@RequestMapping("/test.do")
 	public List<TestDO2> f1() {
 		//testService.testUrl("https://hz.lianjia.com/ershoufang/103102041770.html");
-		List<TestDO2> list1=new ArrayList<>();
+		List<TestDO2> list1=new ArrayList<TestDO2>();
 		for (String string : list) {
 			System.out.println(string);
 			TestDO2 t=new TestDO2();
