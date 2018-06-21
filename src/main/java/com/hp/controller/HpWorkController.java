@@ -56,9 +56,15 @@ public class HpWorkController {
 			for (String string : list) {
 				processService.workUseIp(string,Integer.valueOf(threadSize),Long.valueOf(threadSleepTime),startMode);
 			}
-		}else {
+		}else if(startMode.substring(0,1).equals("2")){
 			for (String string : list) {
-			processService.webMagicWork(string,Integer.valueOf(threadSize),Long.valueOf(threadSleepTime));
+				processService.webMagicWork(string,Integer.valueOf(threadSize),Long.valueOf(threadSleepTime));
+			}
+		}else if(startMode.substring(0,1).equals("3")){
+			//获取代理生成代理池
+			testService.ipWork(ipUrl);
+			for (String string : list) {
+				processService.webMagicWorkUseIp(string,Integer.valueOf(threadSize),Long.valueOf(threadSleepTime));
 			}
 		}
 		long s=System.currentTimeMillis();

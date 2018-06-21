@@ -62,6 +62,7 @@ import com.hp.dao.TestDao;
 import com.hp.dao.model.FailInfoDo;
 import com.hp.dao.model.LianJiaDO;
 import com.hp.dao.model.TestDO;
+import com.hp.proxy.MyProxy;
 import com.hp.redis.RedisCache;
 import com.hp.redis.RedisLock;
 import com.hp.service.ProcessService;
@@ -70,6 +71,7 @@ import com.hp.service.TestService;
 import redis.clients.jedis.Jedis;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Spider;
+import us.codecraft.webmagic.downloader.HttpClientDownloader;
 import us.codecraft.webmagic.selector.Html;
 
 @Service
@@ -84,9 +86,15 @@ public class ProcessServiceImpl implements ProcessService {
 	
 	@Autowired
 	WorkProcesser workProcesser;
+	
+	@Autowired
+	WorkUseIpProcesser workUseIpProcesser;
 
 	@Autowired
 	public RedisCache redisCache;
+	
+	@Autowired
+	public MyProxy myProxy;
 
 	private static int count = 0;
 
@@ -828,6 +836,61 @@ public class ProcessServiceImpl implements ProcessService {
 			}
 		}
 		return errorUrlList2;
+	}
+
+	@Override
+	public void webMagicWorkUseIp(String url, int threadSize, long threadSleepTime) {
+		logger.info("=========webmagic代理模式=========");
+		logger.info("=========webmagic代理模式开启=========");
+		flag=0;
+		/*	
+		webmagic配置IP代理
+		HttpClientDownloader httpClientDownloader = new HttpClientDownloader();
+        httpClientDownloader.setProxyProvider(SimpleProxyProvider.from(
+        new Proxy("27.150.85.171",808)));
+        spider.setDownloader(httpClientDownloader);
+        */
+		HttpClientDownloader httpClientDownloader = new HttpClientDownloader();
+		httpClientDownloader.setProxyProvider(myProxy);
+		Spider spider=Spider.create(workUseIpProcesser).downloader(httpClientDownloader).addUrl(url).thread(threadSize);
+		spider.start();
+		//callable future 来 读取spider状态 阻塞防止直接返回对异常进行处理
+		ExecutorService threadPool = Executors.newSingleThreadExecutor();
+		Future<Integer> future = threadPool.submit(new Callable<Integer>() {
+			public Integer call() throws Exception {
+				while (true) {
+					try {
+						Thread.sleep(2000);
+						if (spider.getStatus().toString().equals("Stopped")) {
+							flag = 1;
+							logger.info("over");
+							break;
+						} else if (spider.getStatus().toString().equals("running")) {
+							logger.info("doing");
+						//	spider.close();
+						} else {
+							logger.info("doing");
+						}
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+				return flag;
+			}
+		});
+		threadPool.shutdown();
+		try {
+			Thread.sleep(5000);
+			if (future.get() == 1) {
+				flag=0;
+			}
+		} catch (InterruptedException e) {
+			logger.info("webmagic 线程监控异常");
+		} catch (ExecutionException e) {
+			logger.info("webmagic 线程监控异常");
+		}
+		logger.info("=========webmagic代理模式结束=========");
+		
 	}
 	
 	

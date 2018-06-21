@@ -45,6 +45,7 @@ spider-list: https://hz.lianjia.com/ershoufang
 #模式 01-httpclient全自动 02-httpclient列表页 03-httpclient详情页 04-当日异常url重爬 
 #httpclient代理 同上 11-全自动 ...
 #21-webmagic爬取 
+#31-webmagic 代理 爬取 
 start-mode: "21"
 #测试代理
 spider-ip-url: https://hz.fang.lianjia.com/loupan
