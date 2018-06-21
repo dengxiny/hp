@@ -61,6 +61,7 @@ public class MyProxy implements ProxyProvider{
 					failInfoDao.insert(failInfoDo);
 				}
 			}
+			redisCache.setString("IP", JsonUtil.toJSONString(setIpPool));
 			if(setIpPool.size()<1) {
 				testService.ipWork(ipUrl);
 			}
