@@ -29,7 +29,7 @@ public class DownServiceImpl implements DownService{
 /*	@Resource
 	TestDao testdao;*/
 	@Resource
-	DownsProcesser downsProcesser;
+	private DownsProcesser downsProcesser;
 	
 	//阻塞标志位
 	public static int a;

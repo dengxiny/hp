@@ -27,13 +27,13 @@ import com.hp.service.TestService;
 //@SpringBootApplication(scanBasePackages = {"com.hp"})
 public class TestController2 {
 	@Autowired
-	public RedisCache redisCache; 
+	private RedisCache redisCache; 
 	
 	@Autowired 
-	public TestService testService;
+	private TestService testService;
 	
 	@Autowired 
-	public ProcessService processService;
+	private ProcessService processService;
 	@Autowired
 	LianJiaDao lianJiaDao;
 	

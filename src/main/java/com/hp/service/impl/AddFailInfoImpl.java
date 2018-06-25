@@ -17,7 +17,7 @@ import com.hp.redis.RedisCache;
 
 @Service
 public class AddFailInfoImpl {
-	public static Logger logger = Logger.getLogger(AddFailInfoImpl.class);
+	private static Logger logger = Logger.getLogger(AddFailInfoImpl.class);
 	
 	
 	@Autowired

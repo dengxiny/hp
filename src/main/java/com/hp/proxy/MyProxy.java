@@ -30,7 +30,7 @@ import us.codecraft.webmagic.proxy.ProxyProvider;
 @Service
 public class MyProxy implements ProxyProvider{
 	@Autowired
-	public RedisCache redisCache;
+	private RedisCache redisCache;
 	@Autowired 
 	public TestService testService;
 	

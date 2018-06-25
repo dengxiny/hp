@@ -2,6 +2,7 @@ package com.hp.redis;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 import lombok.Data;
 
@@ -85,7 +86,9 @@ public class RedisConfig {
 	public void setMaxWait(int maxWait) {
 		this.maxWait = maxWait;
 	}
-	
+	public RedisConfig() {
+		
+	}
 	
 
 }

@@ -17,10 +17,10 @@ import com.hp.service.impl.ProcessServiceImpl;
 
 @RestController
 public class HpWorkController {
-	public static Logger logger = LoggerFactory.getLogger(HpWorkController.class);
+	private static Logger logger = LoggerFactory.getLogger(HpWorkController.class);
 	
 	@Autowired
-	public RedisCache redisCache; 
+	private RedisCache redisCache; 
 	
 	@Autowired 
 	public TestService testService;

@@ -91,7 +91,7 @@ public class ProcessServiceImpl implements ProcessService {
 	WorkUseIpProcesser workUseIpProcesser;
 
 	@Autowired
-	public RedisCache redisCache;
+	private RedisCache redisCache;
 	
 	@Autowired
 	public MyProxy myProxy;

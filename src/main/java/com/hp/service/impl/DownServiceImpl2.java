@@ -26,11 +26,11 @@ import us.codecraft.webmagic.pipeline.Pipeline;
 
 @Service
 public class DownServiceImpl2 implements DownService2{
-	public static Logger logger = Logger.getLogger(DownServiceImpl2.class);
+	private static Logger logger = Logger.getLogger(DownServiceImpl2.class);
 	
 	
 	@Autowired
-	public DownDao downDao;
+	private DownDao downDao;
 	
 	
 	@Override

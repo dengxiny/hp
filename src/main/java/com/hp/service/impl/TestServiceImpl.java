@@ -76,13 +76,13 @@ import us.codecraft.webmagic.selector.Html;
 public class TestServiceImpl implements TestService{
 	public static Logger logger = LoggerFactory.getLogger(TestServiceImpl.class);
 	@Autowired
-	TestDao testdao;
+	private TestDao testdao;
 	
 	@Autowired
-	LianJiaDao lianJiaDao;
+	private LianJiaDao lianJiaDao;
 	
 	@Autowired
-    public RedisCache redisCache;
+	private RedisCache redisCache;
 	
 	public static int count=0;
 	

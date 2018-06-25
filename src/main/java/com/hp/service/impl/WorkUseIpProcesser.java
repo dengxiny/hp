@@ -24,16 +24,16 @@ import us.codecraft.webmagic.processor.PageProcessor;
 @Component
 public class WorkUseIpProcesser implements PageProcessor{
 	
-	public static Logger logger = LoggerFactory.getLogger(WorkUseIpProcesser.class);
+	private static Logger logger = LoggerFactory.getLogger(WorkUseIpProcesser.class);
 	
 	@Autowired
-	public  RedisCache redisCache;
+	private  RedisCache redisCache;
 	
 	@Autowired
-	LianJiaDao lianJiaDao;
+	private LianJiaDao lianJiaDao;
 	
 	@Autowired
-	FailInfoDao failInfoDao;
+	private FailInfoDao failInfoDao;
 	//主页
 	public  String URL="";
 

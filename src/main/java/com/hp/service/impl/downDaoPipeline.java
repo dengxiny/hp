@@ -20,11 +20,10 @@ import us.codecraft.webmagic.pipeline.PageModelPipeline;
 import us.codecraft.webmagic.pipeline.Pipeline;
 
 @Component("downDaoPipeline")
-@SpringBootApplication  
 public class downDaoPipeline implements Pipeline {
 
     @Autowired
-    public DownService2 downService2;
+    private DownService2 downService2;
 
   /*  @Override
     public void process(DownDO downDO, Task task) {

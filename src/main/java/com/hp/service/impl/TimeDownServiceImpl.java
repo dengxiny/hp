@@ -35,13 +35,13 @@ public class TimeDownServiceImpl {
 	private DownsProcesser downsProcesser;
 	
 	@Autowired
-	public RedisCache redisCache; 
+	private RedisCache redisCache; 
 	
 	@Autowired 
-	public TestService testService;
+	private TestService testService;
 	
 	@Autowired 
-	public ProcessService processService;
+	private ProcessService processService;
 	
 	@Value("#{'${spider-list}'.split(',')}")
 	private List<String> list;

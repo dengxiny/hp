@@ -21,7 +21,7 @@ import com.hp.service.TestService;
 //@SpringBootApplication(scanBasePackages = {"com.hp"})
 public class TestController {
 	@Autowired 
-	public TestService testService;
+	private TestService testService;
 	@Value("#{'${spider-list}'.split(',')}")
 	private List<String> list;
 	

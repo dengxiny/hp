@@ -15,7 +15,7 @@ import com.hp.service.TestService;
 //@SpringBootApplication(scanBasePackages = {"com.hp"})
 public class SpiderController {
 	@Autowired 
-	public DownService downService;
+	private DownService downService;
 	
 	
 	@RequestMapping("/down.do")
