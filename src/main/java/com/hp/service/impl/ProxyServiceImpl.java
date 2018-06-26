@@ -55,10 +55,12 @@ import com.hp.common.JsonUtil;
 import com.hp.common.LianJiaCostant;
 import com.hp.dao.LianJiaDao;
 import com.hp.dao.TestDao;
+import com.hp.dao.model.IpWeight;
 import com.hp.dao.model.LianJiaDO;
 import com.hp.dao.model.TestDO;
 import com.hp.redis.RedisCache;
 import com.hp.redis.RedisLock;
+import com.hp.service.ProxyService;
 import com.hp.service.TestService;
 
 import redis.clients.jedis.Jedis;
@@ -72,8 +74,8 @@ import us.codecraft.webmagic.selector.Html;
 
 
 @Service
-public class TestServiceImpl implements TestService{
-	public static Logger logger = LoggerFactory.getLogger(TestServiceImpl.class);
+public class ProxyServiceImpl implements ProxyService{
+	public static Logger logger = LoggerFactory.getLogger(ProxyServiceImpl.class);
 	@Autowired
 	private TestDao testdao;
 	
@@ -86,7 +88,7 @@ public class TestServiceImpl implements TestService{
 	public static int count=0;
 	
 	
-	public static Set<String> IpPool=new HashSet<>(); 
+	public static Set<IpWeight> IpPool=new HashSet<>(); 
 	/*@Autowired
 	public RedisLock redisLock;*/
 	
@@ -238,7 +240,9 @@ public class TestServiceImpl implements TestService{
             	if(a.split("-")[8].equals("ok")) {
             	//	i++;
                 System.out.println("available"+a);
-                IpPool.add(a.split("-")[1]+"-"+a.split("-")[2]+"-"+a.split("-")[5]);
+               // IpPool.add(a.split("-")[1]+"-"+a.split("-")[2]+"-"+a.split("-")[5]);
+                IpWeight ip=new IpWeight(a.split("-")[1]+"-"+a.split("-")[2]+"-"+a.split("-")[5]);
+                IpPool.add(ip);
                // redisCache.setString("IP", JsonUtil.toJSONString(IpPool));
                 //redisCache.listPushHead("IP", a);
             	}
@@ -386,7 +390,7 @@ public class TestServiceImpl implements TestService{
 	public void executeIpPool(int len){
 		while(true) {
 			if(count==len) {
-			  redisCache.setString("IP", JsonUtil.toJSONString(IpPool));
+			  redisCache.setString("IP2", JsonUtil.toJSONString(IpPool));
 			  break;
 			  }else {
 			try {

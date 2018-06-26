@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hp.redis.RedisCache;
 import com.hp.service.ProcessService;
+import com.hp.service.ProxyService;
 import com.hp.service.TestService;
 import com.hp.service.impl.ProcessServiceImpl;
 
@@ -24,6 +25,8 @@ public class HpWorkController {
 	
 	@Autowired 
 	public TestService testService;
+	@Autowired 
+	public ProxyService proxyService;
 	
 	@Autowired 
 	public ProcessService processService;
@@ -62,7 +65,7 @@ public class HpWorkController {
 			}
 		}else if(startMode.substring(0,1).equals("3")){
 			//获取代理生成代理池
-			testService.ipWork(ipUrl);
+			proxyService.ipWork(ipUrl);
 			for (String string : list) {
 				processService.webMagicWorkUseIp(string,Integer.valueOf(threadSize),Long.valueOf(threadSleepTime));
 			}

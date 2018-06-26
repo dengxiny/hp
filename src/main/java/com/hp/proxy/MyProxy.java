@@ -18,8 +18,10 @@ import com.hp.common.DateUtil;
 import com.hp.common.JsonUtil;
 import com.hp.dao.FailInfoDao;
 import com.hp.dao.model.FailInfoDo;
+import com.hp.dao.model.IpWeight;
 import com.hp.redis.RedisCache;
 import com.hp.service.ProcessService;
+import com.hp.service.ProxyService;
 import com.hp.service.TestService;
 
 import us.codecraft.webmagic.Page;
@@ -33,6 +35,8 @@ public class MyProxy implements ProxyProvider{
 	private RedisCache redisCache;
 	@Autowired 
 	public TestService testService;
+	@Autowired 
+	public ProxyService proxyService;
 	
 	@Value("${spider-ip-url}")
 	private String ipUrl;
@@ -47,23 +51,29 @@ public class MyProxy implements ProxyProvider{
 			String host=proxy.getHost();
 			String port=proxy.getPort()+"";
 			String json = redisCache.getString("IP");
-			Set<String> set=new HashSet<>();
-			Set<String> setIpPool = (Set<String>) JsonUtil.toBean(json, set.getClass());
-			Iterator<String> it = setIpPool.iterator();
+			Set<IpWeight> set=new HashSet<>();
+			Set<IpWeight> setIpPool = (Set<IpWeight>) JsonUtil.toBean(json, set.getClass());
+			Iterator<IpWeight> it = setIpPool.iterator();
 			for (int i = 1; i <= setIpPool.size(); i++) {
-				String proxyHost = it.next();
+				IpWeight ipWeight= it.next();
+				String proxyHost =ipWeight.getAddress();
+				ipWeight.reduce();
 				if(host.equals(proxyHost.split("-")[0])&&port.equals(proxyHost.split("-")[1])) {
 					it.remove();
+					ipWeight.reduce();
 					FailInfoDo failInfoDo = new FailInfoDo();
 					failInfoDo.setUrl(page.getRequest().getUrl());
 					failInfoDo.setCreateTime(DateUtil.formatTo_yyyyMMdd());
 					failInfoDo.setFailInfo("ip error");
 					failInfoDao.insert(failInfoDo);
+					if(ipWeight.getWeight()>0) {
+						setIpPool.add(ipWeight);
+					}
 				}
 			}
-			redisCache.setString("IP", JsonUtil.toJSONString(setIpPool));
+			redisCache.setString("IP2", JsonUtil.toJSONString(setIpPool));
 			if(setIpPool.size()<1) {
-				testService.ipWork(ipUrl);
+				proxyService.ipWork(ipUrl);
 			}
 		}
 		
@@ -71,17 +81,18 @@ public class MyProxy implements ProxyProvider{
 
 	@Override
 	public Proxy getProxy(Task task) {
-		String json = redisCache.getString("IP");
-		Set<String> set=new HashSet<>();
-		Set<String> setIpPool = (Set<String>) JsonUtil.toBean(json, set.getClass());
+		String json = redisCache.getString("IP2");
+		Set<IpWeight> set=new HashSet<>();
+		Set<IpWeight> setIpPool = (Set<IpWeight>) JsonUtil.toBean(json, set.getClass());
 		String proxyHost="";
 		while(true) {
 			Random r = new Random();
 			int count = r.nextInt(setIpPool.size()) + 1;
-			Iterator<String> it = setIpPool.iterator();
+			Iterator<IpWeight> it = setIpPool.iterator();
 			
 			for (int i = 1; i <= count; i++) {
-				proxyHost = it.next();
+				IpWeight ipWeight=it.next();
+				proxyHost = ipWeight.getAddress();
 			}
 			if(proxyHost.split("-")[2].equals("http")||proxyHost.split("-")[2].equals("https")) {
 				break;
