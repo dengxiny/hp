@@ -1,6 +1,5 @@
 package com.hp.proxy;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -46,7 +45,6 @@ public class MyProxy implements ProxyProvider{
 	
 	@Override
 	public void returnProxy(Proxy proxy, Page page, Task task) {
-		// TODO Auto-generated method stub
 		if(!page.isDownloadSuccess()) {
 			String host=proxy.getHost();
 			String port=proxy.getPort()+"";

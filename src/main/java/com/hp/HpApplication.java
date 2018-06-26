@@ -15,19 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 //@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
 //public class HpApplication extends SpringBootServletInitializer{
 public class HpApplication{
-	/*@RequestMapping("/")
-	String Home() {
-		return "hello";
-	}
-	@RequestMapping("/home.do")
-	String Home1() {
-		return "home";
-	}*/
-	/*@Override
-    protected SpringApplicationBuilder configure(
-            SpringApplicationBuilder application) {
-        return application.sources(HpApplication.class);
-    }*/
+
+	
+	
 	public static void main(String[] args) {
 	/*	SpringApplication newRun= new SpringApplication(HpApplication.class, args);   
       newRun.setBannerMode(Banner.Mode.OFF);  
