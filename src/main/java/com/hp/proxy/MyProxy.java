@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -44,6 +45,8 @@ public class MyProxy implements ProxyProvider{
 	@Autowired
 	FailInfoDao failInfoDao;
 	
+	private  AtomicInteger count;
+	
 	@Override
 	public void returnProxy(Proxy proxy, Page page, Task task) {
 		// TODO Auto-generated method stub
@@ -54,7 +57,8 @@ public class MyProxy implements ProxyProvider{
 			Set<IpWeight> set=new HashSet<>();
 			Set<IpWeight> setIpPool = (Set<IpWeight>) JsonUtil.toBean(json, set.getClass());
 			Iterator<IpWeight> it = setIpPool.iterator();
-			for (int i = 1; i <= setIpPool.size(); i++) {
+			AtomicInteger size=new AtomicInteger(setIpPool.size());
+			for (AtomicInteger i = new AtomicInteger(1); i .get()<=size.get() ; i.incrementAndGet()) {
 				IpWeight ipWeight= it.next();
 				String proxyHost =ipWeight.getAddress();
 				ipWeight.reduce();
@@ -87,10 +91,11 @@ public class MyProxy implements ProxyProvider{
 		String proxyHost="";
 		while(true) {
 			Random r = new Random();
-			int count = r.nextInt(setIpPool.size()) + 1;
+			count = new AtomicInteger(r.nextInt(setIpPool.size()));
+			count.incrementAndGet();
 			Iterator<IpWeight> it = setIpPool.iterator();
 			
-			for (int i = 1; i <= count; i++) {
+			for (AtomicInteger i = new AtomicInteger(1); i.get() <= count.get(); i.incrementAndGet()) {
 				IpWeight ipWeight=it.next();
 				proxyHost = ipWeight.getAddress();
 			}
