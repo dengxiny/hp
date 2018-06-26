@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 //public class HpApplication extends SpringBootServletInitializer{
 public class HpApplication{
 
+
 	
 	
+
 	public static void main(String[] args) {
 	/*	SpringApplication newRun= new SpringApplication(HpApplication.class, args);   
       newRun.setBannerMode(Banner.Mode.OFF);  
