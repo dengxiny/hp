@@ -8,7 +8,7 @@
 ### ·配置redis
 ### ·执行house.sql 去生成对应表
 ## 2 运行方式 
-### ·通过配置application.yml 配置启动参数(由于是爬取免费代理不建议使用代理模式)
+### ·通过配置application-dev.yml 配置启动参数(由于是爬取免费代理不建议使用代理模式)
 ### ·以jar形式 运行
 ### ·test 输入localhost:8082/hp/hpwork.do  
 ## 3 采用技术
