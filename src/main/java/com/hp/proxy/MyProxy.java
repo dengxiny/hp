@@ -1,6 +1,7 @@
 package com.hp.proxy;
 
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -84,7 +85,30 @@ public class MyProxy implements ProxyProvider{
 		Set<IpWeight> setIpPool = (Set<IpWeight>) JsonUtil.toBean(json, set.getClass());
 		String proxyHost="";
 		while(true) {
-			Random r = new Random();
+			List<IpWeight> result = new ArrayList<>(setIpPool);
+			List<IpWeight> result2 = new ArrayList<>();
+			for (int i = 0; i < result.size(); i++) {
+				IpWeight ip=result.get(i);
+				if(i>0) {
+					ip.setWeight(result.get(i-1).getWeight()+result.get(i).getWeight());
+				}
+				result2.add(ip);
+			}
+			Random r=new Random();
+			int shoot=r.nextInt(result2.get(result2.size()-1).getWeight());
+			for (int j = 0; j < result2.size(); j++) {
+				if(j>=0&&j < result2.size()-1) {
+					if(result2.get(j).getWeight()<=shoot&&result2.get(j+1).getWeight()>shoot) {
+						proxyHost = result2.get(j+1).getAddress();
+					}else if(result2.get(j).getWeight()>shoot&&j==0) {
+						proxyHost = result2.get(j).getAddress();
+					}
+				}
+			}
+			if(proxyHost.split("-")[2].equals("http")||proxyHost.split("-")[2].equals("https")) {
+				break;
+			}
+/*			Random r = new Random();
 			int count = r.nextInt(setIpPool.size()) + 1;
 			Iterator<IpWeight> it = setIpPool.iterator();
 			
@@ -94,7 +118,7 @@ public class MyProxy implements ProxyProvider{
 			}
 			if(proxyHost.split("-")[2].equals("http")||proxyHost.split("-")[2].equals("https")) {
 				break;
-			}
+			}*/
 		}
 		
 		Proxy proxy=new Proxy(proxyHost.split("-")[0], Integer.valueOf(proxyHost.split("-")[1]));
