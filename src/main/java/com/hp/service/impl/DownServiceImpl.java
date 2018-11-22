@@ -8,7 +8,8 @@ import java.util.concurrent.Future;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.hp.dao.TestDao;
@@ -25,7 +26,7 @@ import us.codecraft.webmagic.pipeline.Pipeline;
 
 @Service
 public class DownServiceImpl implements DownService{
-	public static Logger logger = Logger.getLogger(DownServiceImpl.class);
+	public static Logger logger = LoggerFactory.getLogger(DownServiceImpl.class);
 /*	@Resource
 	TestDao testdao;*/
 	@Resource

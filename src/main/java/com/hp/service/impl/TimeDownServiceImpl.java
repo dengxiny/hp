@@ -10,7 +10,8 @@ import java.util.concurrent.Future;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -29,7 +30,7 @@ import us.codecraft.webmagic.Spider;
 @Component
 @EnableScheduling
 public class TimeDownServiceImpl {
-	public static Logger logger = Logger.getLogger(TimeDownServiceImpl.class);
+	public static Logger logger = LoggerFactory.getLogger(TimeDownServiceImpl.class);
 	
 	@Resource
 	private DownsProcesser downsProcesser;

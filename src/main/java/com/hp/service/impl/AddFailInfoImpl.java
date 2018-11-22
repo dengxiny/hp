@@ -8,7 +8,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ import com.hp.redis.RedisCache;
 
 @Service
 public class AddFailInfoImpl {
-	private static Logger logger = Logger.getLogger(AddFailInfoImpl.class);
+	private static Logger logger = LoggerFactory.getLogger(AddFailInfoImpl.class);
 	
 	
 	@Autowired

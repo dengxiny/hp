@@ -5,7 +5,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ import us.codecraft.webmagic.pipeline.Pipeline;
 
 @Service
 public class DownServiceImpl2 implements DownService2{
-	private static Logger logger = Logger.getLogger(DownServiceImpl2.class);
+	private static Logger logger = LoggerFactory.getLogger(DownServiceImpl2.class);
 	
 	
 	@Autowired
